@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OverPlayed - Descubre, juega y comparte</title>
+    <style>
+        :root {
+            /* Paleta de colores OverPlayed */
+            --color-background: #1a1a2e;
+            --color-surface: #2a2a3e;
+            --color-surface-hover: #353550;
+            --color-primary: #ff6b35;
+            --color-primary-hover: #ff5520;
+            --color-secondary: #2dd4bf;
+            --color-text: #ffffff;
+            --color-text-secondary: #b8b8b8;
+            --color-border: #3a3a4e;
+            --color-success: #10b981;
+            --color-discount-bg: rgba(255, 107, 53, 0.15);
+            
+            /* Typography */
+            --font-family-base: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            --font-size-base: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 28px;
+            
+            /* Spacing */
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-24: 24px;
+            --space-32: 32px;
+            
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--color-surface);
+            padding: var(--space-16) 0;
+            border-bottom: 2px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-24);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-32);
+        }
+
+        .logo {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--color-text);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo-over {
+            color: var(--color-primary);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--space-12) var(--space-16);
+            padding-left: 45px;
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+            font-size: var(--font-size-base);
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-secondary);
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-24);
+        }
+
+        .cart-button {
+            position: relative;
+            background: transparent;
+            border: none;
+            color: var(--color-text);
+            font-size: 24px;
+            cursor: pointer;
+            padding: var(--space-8);
+            transition: color 0.3s;
+        }
+
+        .cart-button:hover {
+            color: var(--color-primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            font-size: 11px;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-button {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            padding: var(--space-12) var(--space-24);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            white-space: nowrap;
+        }
+
+        .login-button:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: var(--color-surface);
+            padding: var(--space-16) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-24);
+            display: flex;
+            gap: var(--space-32);
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-text);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--color-primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-32) var(--space-24);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            margin-bottom: var(--space-32);
+        }
+
+        .hero-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-16);
+        }
+
+        .hero-subtitle {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-24);
+        }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-32);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-32);
+            background: linear-gradient(to top, rgba(26, 26, 46, 0.95) 0%, transparent 100%);
+        }
+
+        .carousel-overlay h2 {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-8);
+        }
+
+        .carousel-overlay p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-16);
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: var(--color-text);
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .carousel-button.prev {
+            left: 20px;
+        }
+
+        .carousel-button.next {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: var(--space-8);
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: var(--color-primary);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-24);
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background-color: var(--color-primary);
+            border-radius: 2px;
+        }
+
+        /* Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: var(--space-24);
+            margin-bottom: var(--space-32);
+        }
+
+        .game-card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--color-border);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .game-info {
+            padding: var(--space-16);
+        }
+
+        .game-title {
+            font-weight: 600;
+            margin-bottom: var(--space-8);
+            font-size: var(--font-size-base);
+        }
+
+        .game-price {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .original-price {
+            color: var(--color-text-secondary);
+            text-decoration: line-through;
+            font-size: 13px;
+        }
+
+        .current-price {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+        }
+
+        /* Ver más button */
+        .view-more-container {
+            display: flex;
+            justify-content: center;
+            margin-top: var(--space-32);
+        }
+
+        .view-more-button {
+            background-color: var(--color-surface);
+            color: var(--color-text);
+            padding: var(--space-12) var(--space-32);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-more-button:hover {
+            background-color: var(--color-surface-hover);
+            border-color: var(--color-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-surface);
+            border-top: 2px solid var(--color-border);
+            padding: var(--space-32) 0;
+            margin-top: var(--space-32);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-24);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-32);
+        }
+
+        .footer-section h3 {
+            margin-bottom: var(--space-16);
+            color: var(--color-primary);
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--space-8);
+        }
+
+        .footer-section a:hover {
+            color: var(--color-text);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-16);
+            margin-top: var(--space-16);
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background-color: var(--color-background);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--color-primary);
+        }
+
+        .newsletter-input {
+            display: flex;
+            gap: var(--space-8);
+            margin-top: var(--space-16);
+        }
+
+        .newsletter-input input {
+            flex: 1;
+            padding: var(--space-12);
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+        }
+
+        .newsletter-input button {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            padding: var(--space-12) var(--space-24);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-input button:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: var(--space-24) 0;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-32);
+        }
+
+        /* Chatbot */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(45, 212, 191, 0.4);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-button::before {
+            content: '🤖';
+            font-size: 30px;
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background-color: var(--color-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            border: 1px solid var(--color-border);
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            padding: var(--space-16);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            font-size: var(--font-size-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 24px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: var(--space-16);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-12);
+        }
+
+        .message {
+            padding: var(--space-12);
+            border-radius: var(--radius-md);
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.bot {
+            background-color: var(--color-background);
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background-color: var(--color-primary);
+            align-self: flex-end;
+        }
+
+        .chatbot-input {
+            padding: var(--space-16);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            gap: var(--space-8);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: var(--space-12);
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+        }
+
+        .chatbot-input button {
+            background-color: var(--color-secondary);
+            color: var(--color-background);
+            padding: var(--space-12) var(--space-16);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #26c4ad;
+        }
+
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: var(--space-32);
+            color: var(--color-text-secondary);
+            display: none;
+        }
+
+        .no-results.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            .search-bar {
+                order: 3;
+                flex-basis: 100%;
+                max-width: 100%;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                gap: var(--space-16);
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: var(--space-16);
+            }
+
+            .carousel-slide img {
+                height: 300px;
+            }
+
+            .chatbot-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-over">OVER</span>PLAYED
+            </a>
+            
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar juegos...">
+            </div>
+
+            <div class="header-actions">
+                <button class="cart-button" id="cartButton">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="login-button">Iniciar Sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-link active">Ofertas</a>
+            <a href="#" class="nav-link">Novedades</a>
+            <a href="#" class="nav-link">Próximamente</a>
+            <a href="#" class="nav-link">Populares</a>
+            <a href="#" class="nav-link">Comunidad</a>
+            <a href="#" class="nav-link">FAQ</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">Descubre, juega y comparte. Bienvenido a OverPlayed.</h1>
+            <p class="hero-subtitle">Videojuegos, noticias, guías y ofertas diarias. Únete a nuestra comunidad y no te pierdas ninguna novedad.</p>
+        </section>
+
+        <!-- Carousel -->
+        <div class="carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=450&fit=crop" alt="Little Nightmares">
+                    <div class="carousel-overlay">
+                        <h2>Little Nightmares</h2>
+                        <p>Una aventura de terror única llena de suspenso y misterio</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&h=450&fit=crop" alt="FC 26">
+                    <div class="carousel-overlay">
+                        <h2>FC 26 - Sports Edition</h2>
+                        <p>La nueva generación del fútbol está aquí. Experimenta el juego definitivo</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1200&h=450&fit=crop" alt="Battlefield 6">
+                    <div class="carousel-overlay">
+                        <h2>Battlefield 6</h2>
+                        <p>Combate épico en una guerra a gran escala. ¿Estás listo?</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-button prev" id="prevButton">‹</button>
+            <button class="carousel-button next" id="nextButton">›</button>
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+        </div>
+
+        <!-- Ofertas Section -->
+        <section>
+            <h2 class="section-title">Ofertas Destacadas</h2>
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be dynamically inserted here -->
+            </div>
+            <div class="no-results" id="noResults">
+                No se encontraron juegos que coincidan con tu búsqueda. 😕
+            </div>
+            <div class="view-more-container">
+                <button class="view-more-button">Ver Más</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>OVERPLAYED</h3>
+                <p>OverPlayed: videojuegos, noticias, guías y ofertas diarias. Únete a nuestra comunidad y no te pierdas ninguna novedad.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">G+</a>
+                    <a href="#" class="social-icon">in</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>📍 Alcalá de Henares</p>
+                <p>📞 999 999 999</p>
+                <p>✉️ overplayed@info.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Enlaces Útiles</h3>
+                <a href="#">Home</a>
+                <a href="#">Sobre Nosotros</a>
+                <a href="#">Contacto</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>No te pierdas las últimas novedades</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Tu email...">
+                    <button>Enviar</button>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            Copyright 2025 - OverPlayed. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- Chatbot Button -->
+    <button class="chatbot-button" id="chatbotButton"></button>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <h3>🤖 GAMEBOT</h3>
+            <button class="close-chat" id="closeChat">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot">
+                ¡Hola! 👋 Soy GameBot, tu asistente virtual. ¿En qué puedo ayudarte hoy?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu mensaje...">
+            <button id="sendMessage">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        // Games Data
+        const games = [
+            { id: 1, title: "Little Nightmares", price: 39.99, discount: 40, image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&h=350&fit=crop" },
+            { id: 2, title: "Just Dance 2026", price: 49.99, discount: 15, image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?w=300&h=350&fit=crop" },
+            { id: 3, title: "FC 26 Sports Edition", price: 59.99, discount: 0, image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=350&fit=crop" },
+            { id: 4, title: "Battlefield 6", price: 69.99, discount: 20, image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=300&h=350&fit=crop" },
+            { id: 5, title: "Pokémon Legends", price: 54.99, discount: 10, image: "https://images.unsplash.com/photo-1578358466707-0155b2f0866c?w=300&h=350&fit=crop" },
+            { id: 6, title: "Digimon Story", price: 44.99, discount: 40, image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=350&fit=crop" },
+            { id: 7, title: "Hollow Knight Silksong", price: 29.99, discount: 55, image: "https://images.unsplash.com/photo-1579566346927-c68383817a25?w=300&h=350&fit=crop" },
+            { id: 8, title: "The Sims 4 Expansion Pack", price: 39.99, discount: 30, image: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=300&h=350&fit=crop" },
+            { id: 9, title: "Silent Hill", price: 49.99, discount: 42, image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=300&h=350&fit=crop" },
+            { id: 10, title: "Barbie Horse Trails", price: 34.99, discount: 20, image: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=300&h=350&fit=crop" },
+            { id: 11, title: "Super Mario Simulator", price: 59.99, discount: 30, image: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=300&h=350&fit=crop" },
+            { id: 12, title: "Jurassic World Evolution 3", price: 64.99, discount: 55, image: "https://images.unsplash.com/photo-1512070679279-8988d32161be?w=300&h=350&fit=crop" }
+        ];
+
+        // Cart functionality
+        let cartCount = 0;
+        const cartCountElement = document.getElementById('cartCount');
+        const cartButton = document.getElementById('cartButton');
+
+        cartButton.addEventListener('click', () => {
+            alert(`Tienes ${cartCount} productos en tu carrito`);
+        });
+
+        // Render games
+        function renderGames(gamesToRender) {
+            const gamesGrid = document.getElementById('gamesGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (gamesToRender.length === 0) {
+                gamesGrid.style.display = 'none';
+                noResults.classList.add('active');
+                return;
+            } else {
+                gamesGrid.style.display = 'grid';
+                noResults.classList.remove('active');
+            }
+            
+            gamesGrid.innerHTML = gamesToRender.map(game => {
+                const discountedPrice = (game.price * (1 - game.discount / 100)).toFixed(2);
+                return `
+                    <div class="game-card" onclick="addToCart(${game.id})">
+                        <div style="position: relative;">
+                            <img src="${game.image}" alt="${game.title}" class="game-image">
+                            ${game.discount > 0 ? `<div class="discount-badge">-${game.discount}%</div>` : ''}
+                        </div>
+                        <div class="game-info">
+                            <h3 class="game-title">${game.title}</h3>
+                            <div class="game-price">
+                                ${game.discount > 0 ? `<span class="original-price">$${game.price.toFixed(2)}</span>` : ''}
+                                <span class="current-price">$${game.discount > 0 ? discountedPrice : game.price.toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Add to cart function
+        function addToCart(gameId) {
+            cartCount++;
+            cartCountElement.textContent = cartCount;
+            const game = games.find(g => g.id === gameId);
+            
+            // Visual feedback
+            cartButton.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartButton.style.transform = 'scale(1)';
+            }, 200);
+            
+            // Show notification
+            const notification = document.createElement('div');
+            notification.textContent = `${game.title} añadido al carrito ✓`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: linear-gradient(135deg, #2dd4bf, #10b981);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(45, 212, 191, 0.4);
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm)
+            );
+            renderGames(filteredGames);
+        });
+
+        // Carousel functionality
+        let currentSlide = 0;
+        const carouselTrack = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        const indicatorsContainer = document.getElementById('carouselIndicators');
+
+        // Create indicators
+        for (let i = 0; i < totalSlides; i++) {
+            const indicator = document.createElement('div');
+            indicator.classList.add('indicator');
+            if (i === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => goToSlide(i));
+            indicatorsContainer.appendChild(indicator);
+        }
+
+        function updateCarousel() {
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        document.getElementById('nextButton').addEventListener('click', nextSlide);
+        document.getElementById('prevButton').addEventListener('click', prevSlide);
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 5000);
+
+        // Chatbot functionality
+        const chatbotButton = document.getElementById('chatbotButton');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessage = document.getElementById('sendMessage');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+
+        chatbotButton.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('active');
+        });
+
+        closeChat.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+
+        function addMessage(text, isBot = false) {
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.classList.add(isBot ? 'bot' : 'user');
+            message.textContent = text;
+            chatbotMessages.appendChild(message);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function getBotResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            if (lowerMessage.includes('hola') || lowerMessage.includes('hey')) {
+                return '¡Hola! ¿Cómo puedo ayudarte hoy? 😊';
+            } else if (lowerMessage.includes('precio') || lowerMessage.includes('cuesta')) {
+                return 'Todos nuestros precios están actualizados en la página. ¿Hay algún juego en particular que te interese?';
+            } else if (lowerMessage.includes('descuento') || lowerMessage.includes('oferta')) {
+                return '¡Tenemos ofertas increíbles! Echa un vistazo a nuestra sección de ofertas destacadas. Algunos juegos tienen hasta -55% de descuento 🎮';
+            } else if (lowerMessage.includes('envio') || lowerMessage.includes('entrega')) {
+                return 'Ofrecemos envío gratuito en pedidos superiores a $50. La entrega suele tardar entre 3-5 días hábiles 📦';
+            } else if (lowerMessage.includes('pago') || lowerMessage.includes('tarjeta')) {
+                return 'Aceptamos tarjetas de crédito, débito, PayPal y transferencias bancarias. ¡Tu pago está 100% seguro! 🔒';
+            } else if (lowerMessage.includes('recomendación') || lowerMessage.includes('recomienda')) {
+                return 'Te recomiendo Little Nightmares si te gustan las aventuras de terror, o FC 26 si prefieres deportes. ¿Qué género te interesa más? 🎯';
+            } else if (lowerMessage.includes('gracias')) {
+                return '¡De nada! Si necesitas algo más, aquí estaré. ¡Disfruta jugando! 🎮✨';
+            } else {
+                return 'Interesante pregunta. Déjame conectarte con nuestro equipo de soporte para ayudarte mejor. Mientras tanto, ¿hay algo más en lo que pueda asistirte? 🤔';
+            }
+        }
+
+        sendMessage.addEventListener('click', () => {
+            const userMessage = chatInput.value.trim();
+            if (userMessage) {
+                addMessage(userMessage, false);
+                chatInput.value = '';
+                
+                setTimeout(() => {
+                    const botResponse = getBotResponse(userMessage);
+                    addMessage(botResponse, true);
+                }, 500);
+            }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage.click();
+            }
+        });
+
+        // Initialize
+        renderGames(games);
+    </script>
+</body>
+</html>
