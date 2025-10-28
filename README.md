@@ -1,0 +1,3 @@
+- Proyecto conjunto para la asignatura de Python en el segundo curso de desarrollo de aplicaciones web
+- Chatbot de una página web de venta de videojugos online que asesora al cliente sobre gustos, disponibilidad etc...
+- Utilizaramos html, css javascript y python para la parte de backend, y la IA de CharGPT 5
